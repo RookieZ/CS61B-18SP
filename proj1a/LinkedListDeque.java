@@ -1,6 +1,6 @@
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
     private class Node {
-        private T value;
+        private final T value;
         private Node prev;
         private Node next;
 
@@ -10,7 +10,7 @@ public class LinkedListDeque<T> {
     }
 
     private int size;
-    private Node sentinel;
+    private final Node sentinel;
 
     public LinkedListDeque() {
         size = 0;
@@ -19,14 +19,17 @@ public class LinkedListDeque<T> {
         sentinel.prev = sentinel;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    @Override
     public void addFirst(T item) {
         Node newNode = new Node(item);
         newNode.prev = sentinel;
@@ -37,6 +40,7 @@ public class LinkedListDeque<T> {
         size++;
     }
 
+    @Override
     public void addLast(T item) {
         Node newNode = new Node(item);
         newNode.next = sentinel;
@@ -47,6 +51,7 @@ public class LinkedListDeque<T> {
         size++;
     }
 
+    @Override
     public T removeFirst() {
         if (size == 0) {
             return null;
@@ -64,6 +69,7 @@ public class LinkedListDeque<T> {
         return first.value;
     }
 
+    @Override
     public T removeLast() {
         if (size == 0) {
             return null;
@@ -81,6 +87,7 @@ public class LinkedListDeque<T> {
         return last.value;
     }
 
+    @Override
     public T get(int index) {
         if (index >= size || index < 0) {
             return null;
@@ -111,6 +118,7 @@ public class LinkedListDeque<T> {
         return getRecursiveHelper(index - 1, current.next);
     }
 
+    @Override
     public void printDeque() {
         Node current = sentinel.next;
         while (current != sentinel) {
