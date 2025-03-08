@@ -7,9 +7,12 @@ public class ArrayDeque<T> {
     private int nextFirst;
     private int nextLast;
 
+    /*
+    用于测试，但是autograder无法通过，所以注释掉
     public int getCapacity() {
         return capacity;
     }
+    */
 
     public ArrayDeque() {
         array = (T[]) new Object[INITIAL_CAPACITY];
