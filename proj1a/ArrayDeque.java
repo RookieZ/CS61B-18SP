@@ -1,4 +1,4 @@
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> {
     private static final int INITIAL_CAPACITY = 8;
     private static final float LOAD_FACTOR = 0.25f;
     private T[] array;
@@ -22,12 +22,10 @@ public class ArrayDeque<T> implements Deque<T> {
         nextLast = 1;
     }
 
-    @Override
     public int size() {
         return size;
     }
 
-    @Override
     public boolean isEmpty() {
         return size == 0;
     }
@@ -59,7 +57,6 @@ public class ArrayDeque<T> implements Deque<T> {
         }
     }
 
-    @Override
     public void addFirst(T value) {
         expand();
 
@@ -73,7 +70,6 @@ public class ArrayDeque<T> implements Deque<T> {
         size++;
     }
 
-    @Override
     public void addLast(T value) {
         expand();
 
@@ -87,7 +83,6 @@ public class ArrayDeque<T> implements Deque<T> {
         size++;
     }
 
-    @Override
     public T removeFirst() {
         if (size == 0) {
             return null;
@@ -106,7 +101,6 @@ public class ArrayDeque<T> implements Deque<T> {
         return value;
     }
 
-    @Override
     public T removeLast() {
         if (size == 0) {
             return null;
@@ -125,7 +119,6 @@ public class ArrayDeque<T> implements Deque<T> {
         return value;
     }
 
-    @Override
     public T get(int index) {
         if (index < 0 || index >= size) {
             return null;
@@ -135,7 +128,6 @@ public class ArrayDeque<T> implements Deque<T> {
         return array[i];
     }
 
-    @Override
     public void printDeque() {
         for (int i = 0; i < size; i++) {
             System.out.print(get(i) + " ");
