@@ -16,6 +16,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     private ArrayMap<K, V>[] buckets;
     private int size;
+    private int capacity;
 
     private int loadFactor() {
         return size / buckets.length;
@@ -23,6 +24,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     public MyHashMap() {
         buckets = new ArrayMap[DEFAULT_SIZE];
+        capacity = DEFAULT_SIZE;
         this.clear();
     }
 
@@ -53,19 +55,46 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        int hashNum = hash(key);
+        return buckets[hashNum].get(key);
     }
 
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        if (!containsKey(key)) {
+            size++;
+        }
+        if (loadFactor() > MAX_LF) {
+            resize();
+        }
+
+        int hashNum = hash(key);
+        buckets[hashNum].put(key, value);
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return size;
+    }
+
+    private void resize() {
+        ArrayMap<K, V>[] originalBuckets = buckets;
+        buckets = new ArrayMap[capacity * 2];
+        for (int i = 0; i < buckets.length; i += 1) {
+            buckets[i] = new ArrayMap<>();
+        }
+
+        for (int i = 0; i < capacity; i++) {
+            ArrayMap<K, V> currentBucket = originalBuckets[i];
+            for (K key : currentBucket) {
+                V value = currentBucket.get(key);
+                buckets[hash(key)].put(key, value);
+            }
+        }
+
+        capacity *= 2;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
